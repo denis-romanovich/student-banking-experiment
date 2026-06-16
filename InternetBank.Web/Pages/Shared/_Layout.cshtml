@@ -15,8 +15,17 @@
             <div class="navbar">
                 <div class="logo">InvestBank</div>
                 <div class="nav-links">
-                    <button class="btn-outline" id="loginBtn">Вход</button>
-                    <button class="btn-primary" id="registerBtn">Регистрация</button>
+                    @if (!string.IsNullOrEmpty(Context.Session.GetString("UserId")))
+                    {
+                        var firstName = Context.Session.GetString("UserFirstName");
+                        <span>Привет, @firstName!</span>
+                        <a href="/Logout" class="btn-outline">Выйти</a>
+                    }
+                    else
+                    {
+                        <a href="/Login" class="btn-outline">Вход</a>
+                        <a href="/Register" class="btn-primary">Регистрация</a>
+                    }
                 </div>
             </div>
         </div>
