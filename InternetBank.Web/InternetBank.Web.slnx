@@ -1,1 +1,3 @@
-<Solution />
+<Solution>
+  <Project Path="InternetBank.Web.csproj" />
+</Solution>
