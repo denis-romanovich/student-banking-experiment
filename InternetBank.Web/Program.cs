@@ -10,10 +10,25 @@ namespace InternetBank.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            // Добавляем Razor Pages
+            builder.Services.AddRazorPages();
 
+            // Регистрируем сервис пользователей (теперь с БД)
+            builder.Services.AddScoped<IUserService, DbUserService>();
+
+            // Настройка базы данных
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<BankDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            // ===== НАСТРОЙКА СЕССИЙ (ОБЯЗАТЕЛЬНО) =====
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+            // =======================================
 
             // инструмент для выполнения запросов к API Нацбанка
             builder.Services.AddHttpClient();
@@ -23,7 +38,10 @@ namespace InternetBank.Web
 
             var app = builder.Build();
 
-            app.MapGet("/", () => "Hello World!");
+            app.UseStaticFiles();   // статика (css, js)
+            app.UseRouting();       // маршрутизация
+            app.UseSession();       // <-- включаем сессии
+            app.MapRazorPages();    // Razor Pages
 
             app.Run();
         }

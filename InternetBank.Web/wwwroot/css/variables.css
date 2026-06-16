@@ -1,0 +1,29 @@
+:root {
+    /* Основные цвета */
+    --color-primary: #2c7da0;
+    --color-primary-dark: #1e5a74;
+    --color-primary-light: #4a9fc7;
+    --color-secondary: #1e3c72;
+    --color-text: #1e2a3e;
+    --color-text-light: #4a627a;
+    --color-bg: #ffffff;
+    --color-bg-alt: #f8fafc;
+    --color-bg-hero: #eef2f7;
+    --color-border: #e2e8f0;
+    --color-footer-bg: #1e2a3e;
+    --color-footer-text: #cbd5e1;
+    --color-white: #ffffff;
+    --color-footer-border: #334155;
+    
+    /* Статистика, акценты */
+    --color-stat-number: #2c7da0;
+    
+    /* Тени */
+    --shadow-sm: 0 5px 15px rgba(0,0,0,0.05);
+    --shadow-md: 0 15px 30px rgba(0,0,0,0.1);
+    --shadow-lg: 0 20px 30px -10px rgba(0,0,0,0.1);
+    
+    /* Градиенты */
+    --gradient-logo: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    --gradient-hero: linear-gradient(120deg, var(--color-bg-hero) 0%, var(--color-bg) 100%);
+}
