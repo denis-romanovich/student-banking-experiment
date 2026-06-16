@@ -1,0 +1,14 @@
+@using InternetBank.Web.Pages
+@model List<Testimonial>
+
+<section class="testimonials">
+    <div class="container">
+        <h2 class="section-title">Что говорят клиенты</h2>
+        <div class="testimonial-grid">
+            @foreach (var t in Model)
+            {
+                <div class="testimonial">@t.Text – @t.Author</div>
+            }
+        </div>
+    </div>
+</section>

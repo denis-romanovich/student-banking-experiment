@@ -1,0 +1,40 @@
+@page
+@using InternetBank.Web.Pages
+@model IndexModel
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <h1>Банк, который всегда с вами</h1>
+                <p>Откройте счёт за 5 минут, управляйте финансами онлайн, получайте кешбэк до 10% и пользуйтесь лучшими
+                    условиями на рынке.</p>
+                    <button class="btn-primary btn-large" id="openAccountBtn">Открыть счёт →</button>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number">@Model.TotalClients</div>
+                            <div>Клиентов</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">24/7</div>
+                            <div>Поддержка</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">@Model.Fee</div>
+                            <div>Обслуживание</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div style="font-size: 180px;">📱💳</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <partial name="_Features" />
+    <partial name="_Services" />
+    <partial name="_Testimonials" model="Model.Testimonials" />
