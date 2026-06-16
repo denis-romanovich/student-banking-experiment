@@ -30,6 +30,12 @@ namespace InternetBank.Web
             });
             // =======================================
 
+            // инструмент для выполнения запросов к API Нацбанка
+            builder.Services.AddHttpClient();
+
+            // фоновый сервис для автоматического обновления курсов валют
+            builder.Services.AddHostedService<CurrencyUpdateService>();
+
             var app = builder.Build();
 
             app.UseStaticFiles();   // статика (css, js)
