@@ -317,6 +317,212 @@ main {
     display: inline-block;          
 }
 
+/* ===== Стили для страниц счетов ===== */
+
+/* ===== Карточки счетов – современный стиль ===== */
+.account-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 20px;                 /* более скруглённые */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+    padding: 4px;                       /* чтобы внутренний отступ был через .card-body */
+}
+.account-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.account-card .card-body {
+    padding: 20px 24px 24px;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+.account-card h5 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-secondary);
+    margin-bottom: 12px;
+}
+.account-card p {
+    font-size: 15px;
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+.account-card p strong {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+/* Заголовки на страницах счетов */
+.page-title {
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Таблица транзакций */
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-white);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+.transaction-table th {
+    background: var(--color-bg-alt);
+    color: var(--color-text-light);
+    font-weight: 600;
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+}
+.transaction-table td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+}
+.transaction-table tr:last-child td {
+    border-bottom: none;
+}
+.transaction-amount-positive {
+    color: #28a745;
+}
+.transaction-amount-negative {
+    color: #dc3545;
+}
+
+/* Фильтры – делаем их в стиле сайта */
+.filter-form .form-select,
+.filter-form .form-control {
+    border-radius: 12px;               /* увеличенный радиус */
+    border: 1px solid var(--color-border);
+    padding: 10px 14px;
+    font-size: 15px;
+    background-color: var(--color-bg);
+}
+.filter-form .form-select:focus,
+.filter-form .form-control:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(44,125,160,0.2);
+}
+.filter-form .btn {
+    border-radius: var(--radius-btn);
+    padding: var(--spacing-xs) var(--spacing-md);
+}
+.filter-form .btn-outline-primary,
+.filter-form .btn-outline-secondary {
+    padding: 8px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.2s;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+.filter-form .btn-outline-primary {
+    background: var(--color-primary);
+    border: none;
+    color: white;
+}
+.filter-form .btn-outline-primary:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+}
+.filter-form .btn-outline-secondary {
+    background: transparent;
+    border: 2px solid var(--color-border);
+    color: var(--color-text-light);
+}
+.filter-form .btn-outline-secondary:hover {
+    background: var(--color-border);
+    color: var(--color-text);
+}
+
+/* Детали счёта – карточка с информацией */
+.account-detail-card {
+    background: var(--color-white);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+.account-detail-card .detail-item {
+    margin-bottom: var(--spacing-sm);
+}
+.account-detail-card .detail-label {
+    font-weight: 600;
+    color: var(--color-text-light);
+    display: center;
+    min-width: 100px;
+}
+.account-detail-card .detail-value {
+    color: var(--color-text);
+    margin-left: 20px;
+    display: center;
+}
+
+/* Кнопка "Назад" – дополняем Bootstrap */
+.btn-outline-secondary {
+    border-color: var(--color-border);
+    color: var(--color-text-light);
+}
+.btn-outline-secondary:hover {
+    background: var(--color-border);
+    color: var(--color-text);
+}
+.btn-outline-primary,
+.btn-outline-danger {
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+.btn-outline-primary {
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+}
+.btn-outline-primary:hover {
+    background: var(--color-primary);
+    color: white;
+}
+.btn-outline-danger {
+    background: transparent;
+    border: 2px solid #dc3545;
+    color: #dc3545;
+}
+.btn-outline-danger:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* ===== Детали счёта – карточки ===== */
+.account-detail-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 24px;                /* увеличенный радиус */
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    height: 100%;
+}
+
+/* Заголовки внутри карточек – крупнее */
+.detail-card-title {
+    text-align: center;
+    color: var(--color-secondary);
+    font-size: 28px;                    /* крупнее, чем было */
+    font-weight: 700;                   /* полужирный */
+    margin-bottom: var(--spacing-md);
+    letter-spacing: 0.5px;              /* лёгкий интервал для читаемости */
+}
+
+/* Остальные стили уже есть, они остаются без изменений */
+
 /* ===== Адаптивность ===== */
 @media (max-width: 768px) {
     .hero-content h1 {
@@ -329,5 +535,13 @@ main {
     .hero-stats {
         flex-direction: column;
         align-items: center;
+    }
+    .account-card .card-body {
+        padding: var(--spacing-sm);
+    }
+    .transaction-table th,
+    .transaction-table td {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-small);
     }
 }
