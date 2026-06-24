@@ -18,6 +18,8 @@ namespace InternetBank.Web
 
             builder.Services.AddScoped<IAccountService, AccountService>();
 
+            builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+
             // Настройка базы данных
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<BankDbContext>(options =>

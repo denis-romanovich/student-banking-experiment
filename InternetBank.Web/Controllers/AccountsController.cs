@@ -9,10 +9,12 @@ namespace InternetBank.Web.Controllers;
 public class AccountsController : Controller
 {
     private readonly IAccountService _accountService;
+    private readonly ICurrencyService _currencyService;
 
-    public AccountsController(IAccountService accountService)
+    public AccountsController(IAccountService accountService, ICurrencyService currencyService)
     {
         _accountService = accountService;
+        _currencyService = currencyService;
     }
 
     // GET: /Accounts
@@ -24,6 +26,7 @@ public class AccountsController : Controller
             return RedirectToPage("/Login");
 
         var accounts = await _accountService.GetAccountsByUserIdAsync(userId, currency, isActive);
+        var currencies = await _currencyService.GetActiveCurrenciesAsync();
 
         var viewModel = new AccountListViewModel
         {
@@ -32,33 +35,30 @@ public class AccountsController : Controller
             IsActiveFilter = isActive,
             Currencies = new List<SelectListItem>
             {
-                new SelectListItem { Text = "Все", Value = "" },
-                new SelectListItem { Text = "BYN", Value = "BYN" },
-                new SelectListItem { Text = "USD", Value = "USD" },
-                new SelectListItem { Text = "EUR", Value = "EUR" },
-                new SelectListItem { Text = "RUB", Value = "RUB" }
+                new SelectListItem { Text = "Все", Value = "" }
             }
         };
+        viewModel.Currencies.AddRange(
+            currencies.Select(c => new SelectListItem { Text = c.Code, Value = c.Code })
+        );
+
         return View(viewModel);
     }
 
     // GET: /Accounts/Open
     [HttpGet("Open")]
-    public IActionResult Open()
+    public async Task<IActionResult> Open()
     {
         var userIdString = HttpContext.Session.GetString("UserId");
         if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out int _))
             return RedirectToPage("/Login");
 
+        var currencies = await _currencyService.GetActiveCurrenciesAsync();
         var model = new OpenAccountViewModel
         {
-            Currencies = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "BYN", Value = "BYN" },
-                new SelectListItem { Text = "USD", Value = "USD" },
-                new SelectListItem { Text = "EUR", Value = "EUR" },
-                new SelectListItem { Text = "RUB", Value = "RUB" }
-            }
+            Currencies = currencies
+                .Select(c => new SelectListItem { Text = c.Code, Value = c.Code })
+                .ToList()
         };
         return View(model);
     }
@@ -70,13 +70,11 @@ public class AccountsController : Controller
     {
         if (!ModelState.IsValid)
         {
-            model.Currencies = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "BYN", Value = "BYN" },
-                new SelectListItem { Text = "USD", Value = "USD" },
-                new SelectListItem { Text = "EUR", Value = "EUR" },
-                new SelectListItem { Text = "RUB", Value = "RUB" }
-            };
+            // При ошибке повторно загружаем список валют из БД
+            var currencies = await _currencyService.GetActiveCurrenciesAsync();
+            model.Currencies = currencies
+                .Select(c => new SelectListItem { Text = c.Code, Value = c.Code })
+                .ToList();
             return View(model);
         }
 
@@ -88,6 +86,11 @@ public class AccountsController : Controller
         if (!success)
         {
             ModelState.AddModelError("", "Не удалось открыть счёт.");
+            // Снова загружаем валюты, если нужно показать форму с ошибкой
+            var currencies = await _currencyService.GetActiveCurrenciesAsync();
+            model.Currencies = currencies
+                .Select(c => new SelectListItem { Text = c.Code, Value = c.Code })
+                .ToList();
             return View(model);
         }
 
