@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"] - InvestBank</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/variables.css">
     <link rel="stylesheet" href="~/styles.css">
+
 </head>
 
 <body>
@@ -19,6 +21,7 @@
                     {
                         var firstName = Context.Session.GetString("UserFirstName");
                         <span>Привет, @firstName!</span>
+                        <a href="/Accounts" class="btn-outline">Мои счета</a>
                         <a href="/Logout" class="btn-outline">Выйти</a>
                     }
                     else
@@ -45,6 +48,8 @@
             <div class="footer-copyright">Интернет-банк Лицензия ЦБ РБ № 1234</div>
         </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -16,6 +16,10 @@ namespace InternetBank.Web
             // Регистрируем сервис пользователей (теперь с БД)
             builder.Services.AddScoped<IUserService, DbUserService>();
 
+            builder.Services.AddScoped<IAccountService, AccountService>();
+
+            builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+
             // Настройка базы данных
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<BankDbContext>(options =>
@@ -40,7 +44,8 @@ namespace InternetBank.Web
 
             app.UseStaticFiles();   // статика (css, js)
             app.UseRouting();       // маршрутизация
-            app.UseSession();       // <-- включаем сессии
+            app.UseSession();
+            app.MapControllers();     // <-- включаем сессии
             app.MapRazorPages();    // Razor Pages
 
             app.Run();

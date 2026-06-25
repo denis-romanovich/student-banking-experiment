@@ -26,4 +26,17 @@
     /* Градиенты */
     --gradient-logo: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     --gradient-hero: linear-gradient(120deg, var(--color-bg-hero) 0%, var(--color-bg) 100%);
+
+    /* ===== Отступы (spacing) ===== */
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
+    --spacing-xxl: 80px;
+
+    /* ===== Радиусы ===== */
+    --radius-btn: 30px;
+    --radius-card: 20px;
+    --radius-input: 12px;   /* добавить эту строку */
 }

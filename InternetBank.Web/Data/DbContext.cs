@@ -12,5 +12,8 @@ namespace InternetBank.Web.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<CurrencyRate> CurrencyRates { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
     }
 }

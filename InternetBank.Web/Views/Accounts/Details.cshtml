@@ -1,0 +1,75 @@
+@using InternetBank.Web.ViewModels
+@model AccountDetailsViewModel
+@{
+    ViewData["Title"] = "Детали счёта";
+}
+
+<div class="container" style="max-width: 1100px; margin-top: 100px;">
+
+    <div class="row">
+        <!-- Левая колонка (уже): детали счёта -->
+        <div class="col-md-5">
+            <div class="account-detail-card">
+                <h3 class="detail-card-title">Детали счёта</h3>
+                <div class="detail-item"><span class="detail-label">Номер счёта:</span> <span
+                    class="detail-value">@Model.Account.AccountNumber</span></div>
+                    <div class="detail-item"><span class="detail-label">Валюта:</span> <span
+                        class="detail-value">@Model.Account.Currency</span></div>
+                        <div class="detail-item"><span class="detail-label">Баланс:</span> <span
+                            class="detail-value">@Model.Account.Balance.ToString("N2")</span></div>
+                            <div class="detail-item"><span class="detail-label">Статус:</span> <span
+                                class="detail-value">@(Model.Account.IsActive ? "Активен" : "Закрыт")</span></div>
+                                <div class="detail-item"><span class="detail-label">Открыт:</span> <span
+                                    class="detail-value">@Model.Account.CreatedAt.ToShortDateString()</span></div>
+                                    @if (!Model.Account.IsActive && Model.Account.ClosedAt.HasValue)
+                                    {
+                                        <div class="detail-item"><span class="detail-label">Закрыт:</span> <span
+                                            class="detail-value">@Model.Account.ClosedAt.Value.ToShortDateString()</span></div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <!-- Правая колонка (шире): последние транзакции -->
+                                <div class="col-md-7">
+                                    <div class="account-detail-card">
+                                        <h4 class="detail-card-title">Последние транзакции</h4>
+                                        @if (!Model.Transactions.Any())
+                                        {
+                                            <p>Нет операций.</p>
+                                        }
+                                        else
+                                        {
+                                            <table class="transaction-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Дата</th>
+                                                        <th>Описание</th>
+                                                        <th>Сумма</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var t in Model.Transactions)
+                                                    {
+                                                        <tr>
+                                                            <td>@t.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                                                            <td>@t.Description</td>
+                                                            <td
+                                                                class="@(t.Amount >= 0 ? "transaction-amount-positive" : "transaction-amount-negative")">
+                                                                @t.Amount.ToString("N2")
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Кнопка "Назад" -->
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <a href="/Accounts" class="btn-outline-primary">Назад</a>
+                                </div>
+                            </div>
+                        </div>
